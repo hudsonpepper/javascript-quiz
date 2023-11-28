@@ -12,18 +12,17 @@
     <h1>JavaScript Quiz</h1>
     <p id="timer">Timer: </p>
   </header>
-  <script src="./assets/script.js"></script>
   <div id="center">
     <div class="visible" id="quiz">
-      <h1 id="question">do robot cows dream of electric milk?</p>
       <div id="question-navigation">
-        <section class="card navigation" id="previous">Prev. Question</section>
-        <section class="card" id="next">Next Question</section>
+        <button class="card navigation" id="previous" data-number="-1">Prev. Question</button>
+        <button class="card" id="next" data-number="1">Next Question</button>
       </div>
-      <section class="card" id="answer1">sample answer 1: no...</section>
-      <section class="card" id="answer2">sample answer 2: yes!</section>
-      <section class="card" id="answer3">sample answer 3: this is a stupid question.</section>
-      <section class="card" id="answer4">sample answer 4: cows don't sleep</section>
+      <h2 id="question"></h2>
+      <button class="card" id="answer1" data-number="1"></button>
+      <button class="card" id="answer2" data-number="2"></button>
+      <button class="card" id="answer3" data-number="3"></button>
+      <button class="card" id="answer4" data-number="4"></button>
       <footer>Correct!</footer>
     </div>
     <div class="hidden" id="scoreboard">
@@ -35,5 +34,6 @@
       </ol>
     </div>
   </div>
+  <script src="./assets/script.js"></script>
 </body>
 </html>
