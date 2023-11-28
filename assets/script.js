@@ -10,6 +10,7 @@ var ans1El = document.querySelector("#answer1");
 var ans2El = document.querySelector("#answer2");
 var ans3El = document.querySelector("#answer3");
 var ans4El = document.querySelector("#answer4");
+var respEl = document.querySelector("#response");
 var scoreboardEl = document.querySelector("#scoreboard");
 
 // Variable Initializations
@@ -28,7 +29,7 @@ let question2= {
   answer2: "sample answer 2: yes!",
   answer3: "sample answer 3: this is a stupid question.",
   answer4: "sample answer 4: cows don't sleep",
-  correctAnswer: 3
+  correctAnswer: 2
 }
 let qArr = [question1, question2]
 var secondsLeft = 60;
@@ -41,6 +42,13 @@ quizEl.addEventListener("click", function(event) {
     console.log("click"); 
     answerChoice = element.getAttribute("data-number")
     console.log("You clicked on answer #" + answerChoice);
+    console.log("Correct answer: ", qArr[questionNumber].correctAnswer);
+    if (answerChoice == qArr[questionNumber].correctAnswer) {
+      console.log("You got it Correct!");
+    }
+    else {
+      console.log("You got it wrong");
+    }
   };
 
 })
