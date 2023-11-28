@@ -23,6 +23,10 @@ header p {
   display: inline;
   width: fit-content;
 }
+#highscores {
+  color:blueviolet;
+  text-decoration: underline;
+}
 #center {
   justify-self: center;
   width:50%;
@@ -73,8 +77,10 @@ footer {
 .hidden {
   visibility: hidden;
 }
-
-.card:hover {
+#highscores:hover {
+  cursor: pointer;
+}
+.notClicked:hover {
   cursor: pointer;
   background-color: darkcyan;
 }
@@ -100,4 +106,14 @@ footer {
   #center {
     width: 100%;
   }
+}
+
+.correct {
+  background-color: lawngreen;
+  cursor: default;
+}
+
+.incorrect {
+  background-color: red;
+  cursor: default;
 }
