@@ -9,8 +9,31 @@
 <body>
   <header>
     <p id="highscores">View Highscores</p>
+    <h1>JavaScript Quiz</h1>
     <p id="timer">Timer: </p>
   </header>
   <script src="./assets/script.js"></script>
+  <div id="center">
+    <div class="visible" id="quiz">
+      <h1 id="question">do robot cows dream of electric milk?</p>
+      <div id="question-navigation">
+        <section class="card navigation" id="previous">Prev. Question</section>
+        <section class="card" id="next">Next Question</section>
+      </div>
+      <section class="card" id="answer1">sample answer 1: no...</section>
+      <section class="card" id="answer2">sample answer 2: yes!</section>
+      <section class="card" id="answer3">sample answer 3: this is a stupid question.</section>
+      <section class="card" id="answer4">sample answer 4: cows don't sleep</section>
+      <footer>Correct!</footer>
+    </div>
+    <div class="hidden" id="scoreboard">
+      <h2>Scoreboard! </h2>
+      <ol>
+        <li>score 1</li>
+        <li>score 2</li>
+        <li>Score 3</li>
+      </ol>
+    </div>
+  </div>
 </body>
 </html>

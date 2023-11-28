@@ -1,7 +1,13 @@
+* {
+  /* border: 2px solid hotpink; */
+  margin: 2px;
+}
+
 body {
   position: relative;
   font-family: "Helvetica", "Arial", sans-serif;
   font-size: 1em;
+  display: grid
 }
 
 header {
@@ -16,4 +22,82 @@ header p {
   padding:1em;
   display: inline;
   width: fit-content;
+}
+#center {
+  justify-self: center;
+  width:50%;
+  position: relative;
+}
+
+#quiz {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
+#question {
+  text-align: left;
+  font-size: x-large;
+  font-weight: bolder;
+}
+#question-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin:1em;
+}
+.navigation {
+  max-width: 40%;
+}
+.card {
+  border-radius: .2em;
+  padding: 1em;
+  background-color: cadetblue;
+  color:floralwhite;
+}
+
+footer {
+  justify-self: center;
+  margin-top: 1em;
+  padding-top: .5em;
+  width: 50%;
+  text-align: left;
+  border-top: 2px solid gray;
+  text-indent: 3em;
+}
+
+.visible {
+  visibility: visible;
+}
+.hidden {
+  visibility: hidden;
+}
+
+.card:hover {
+  cursor: pointer;
+  background-color: darkcyan;
+}
+
+#scoreboard {
+  position:absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
+#scoreboard h2 {
+  text-align: center;
+  border-bottom: 2px solid gray;
+
+}
+@media screen and (max-width: 992px) {
+  #center {
+    width: 75%;
+  }
+}
+@media screen and (max-width: 768px){
+  #center {
+    width: 100%;
+  }
 }
