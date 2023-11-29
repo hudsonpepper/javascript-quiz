@@ -1,6 +1,10 @@
 // Add relavent HTML IDs as JS variables
 var timeEl = document.querySelector("#timer");
 var highscoreEl = document.querySelector("#highscores");
+var welcomeEl = document.querySelector("#pageLoad");
+var defaultEl = document.querySelector("#defaultTime");
+var deductionEl = document.querySelector("#deductionTime")
+var startEl = document.querySelector("#startQuiz");
 var quizEl = document.querySelector("#quiz");
 var questionEl = document.querySelector("#question");
 var quizNavEl = document.querySelector("#question-navigation")
@@ -13,6 +17,10 @@ var ans3El = document.querySelector("#answer3");
 var ans4El = document.querySelector("#answer4");
 var respEl = document.querySelector("#response");
 var scoreboardEl = document.querySelector("#scoreboard");
+var scoreEl = document.querySelector("#score");
+var initialsEl = document.querySelector("#initials");
+var confirmEl = document.querySelector("#confirm");
+
 var answers = [ans1El, ans2El, ans3El, ans4El];
 // Variable Initializations
 var questionNumber = 0;
@@ -54,6 +62,7 @@ let question3 = {
 }
 let qArr = [question1, question2, question3];
 var defaultTime = 60;
+var secondsDeducted = 5;
 var secondsLeft = defaultTime;
 var quizDone = false;
 var numCorrect = 0;
@@ -62,6 +71,17 @@ var numCorrect = 0;
 highscoreEl.addEventListener("click", function(event) {
   document.location.href="./scoreboard.html"
 })
+
+confirmEl.addEventListener("click", function(event) {
+  event.preventDefault();
+  let initial = initialsEl.value;
+  localStorage.setItem("testing", initial)
+  document.location.href="./scoreboard.html"
+})
+
+defaultEl.textContent = defaultTime;
+deductionEl.textContent = secondsDeducted;
+startEl.addEventListener("click", startQuiz)
 
 // EventListener for Answering a question
 quizEl.addEventListener("click", function(event) {
@@ -93,7 +113,7 @@ quizEl.addEventListener("click", function(event) {
       else if (!element.classList.contains("disabled")) {
         console.log("You got it wrong");
         respEl.textContent = "You got it wrong. Deducting 5 seconds from remaining time."
-        secondsLeft-=5;
+        secondsLeft-=secondsDeducted;
         timeEl.textContent = "Time: "+ secondsLeft;
         element.classList.add("incorrect");
         element.classList.remove("isValid");
@@ -188,13 +208,16 @@ function loadQuestion(num, qArray) {
 function endQuiz() {
   //ToDo: turn the quiz to the highscore section
   //Todo: store the current score
-  respEl.textContent = "Quiz is over"
+  //respEl.textContent = "Quiz is over"
+  scoreboardEl.classList.remove("hidden");
   //document.location.href="./scoreboard.html"
 }
 
 function startQuiz() {
+  
   secondsLeft = defaultTime;
   questionNumber = 0;
+  welcomeEl.classList.add("hidden");
   quizEl.classList.remove("hidden");
   scoreboardEl.classList.add("hidden");
   for(let i = 0; i < qArr.length; i++) {
@@ -205,5 +228,5 @@ function startQuiz() {
   numCorrect = 0;
   setTime();
 }
-startQuiz();
+//startQuiz();
 //loadQuestion(0,qArr);

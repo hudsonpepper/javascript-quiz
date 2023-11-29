@@ -84,14 +84,14 @@ footer {
   background-color: darkcyan;
 }
 
-#scoreboard {
+#pageLoad {
   position:absolute;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-self: center;
 }
-#scoreboard h2 {
+#pageLoad h2 {
   text-align: center;
   border-bottom: 2px solid gray;
 

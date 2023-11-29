@@ -13,7 +13,17 @@
     <p id="timer">Timer: </p>
   </header>
   <div id="center">
-    <div id="quiz">
+    <div id="pageLoad">
+      <h2>Welcome to the JavaScript Quiz! </h2>
+      <p>This is a JavaScript Quiz! 
+        Find as many correct answers as you can before time runs out. 
+        You start with <span id="defaultTime"></span> seconds, but incorrect 
+        answers reduce the total time by <span id="deductionTime"></span> seconds 
+        per wrong answer. If you have time remaining at the end, that's a plus!
+      </p>
+      <button class="card" id="startQuiz">Start Quiz</button>
+    </div>
+    <div class="hidden" id="quiz">
       <div id="question-navigation">
         <button class="card navigation" id="previous" data-number="-1">Prev. Question</button>
         <span id="portion-done"></span>
@@ -25,14 +35,16 @@
       <button class="card isValid" id="answer3" data-number="3"></button>
       <button class="card isValid" id="answer4" data-number="4"></button>
       <footer id="response">Correct!</footer>
-    </div>
-    <div class="hidden" id="scoreboard">
-      <h2>Scoreboard! </h2>
-      <ol>
-        <li>score 1</li>
-        <li>score 2</li>
-        <li>Score 3</li>
-      </ol>
+      <form class="hidden" id="scoreboard">
+        <h4>Quiz is done!</h4>
+        <p id="score">test text</p>
+        <p>To save you score, enter your name and see where you fall on the leaderboards</p>
+        <div class="input-group">
+          <label for="first-name">Name: </label>
+          <input type="text" name="initials" id="initials" placeholder="JDS" />
+          <button id="confirm">See Scores:</button>
+        </div>
+      </form>
     </div>
   </div>
   <script src="./assets/script.js"></script>
