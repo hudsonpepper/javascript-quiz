@@ -79,7 +79,8 @@ var numCorrect = 0;
 
 // EventListener for "View HighScore"
 highscoreEl.addEventListener("click", function(event) {
-  document.location.href="./assets/scoreboard.html"
+  document.location.href="scoreboard.html"
+  "./scoreboard.html"
 })
 
 // EventListener for the Submit button for initials
@@ -88,7 +89,7 @@ confirmEl.addEventListener("click", function(event) {
   quizResults.initials = initialsEl.value;
   console.log("quizResults final: ", quizResults);
   localStorage.setItem("Most-Recent", JSON.stringify(quizResults));
-  document.location.href="./assets/scoreboard.html"
+  document.location.href="./scoreboard.html"
 })
 
 defaultEl.textContent = defaultTime;
