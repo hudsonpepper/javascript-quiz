@@ -117,3 +117,9 @@ footer {
   background-color: red;
   cursor: default;
 }
+
+.disabled {
+  background-color: darkslategray;
+  color:gray;
+  cursor: default;
+}
