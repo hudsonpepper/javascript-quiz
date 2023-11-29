@@ -55,7 +55,8 @@ let question3 = {
 let qArr = [question1, question2, question3];
 var defaultTime = 60;
 var secondsLeft = defaultTime;
-var stopTimer = false;
+var quizDone = false;
+var numCorrect = 0;
 
 // EventListener for "View HighScore"
 highscoreEl.addEventListener("click", function(event) {
@@ -65,13 +66,17 @@ highscoreEl.addEventListener("click", function(event) {
 // EventListener for Answering a question
 quizEl.addEventListener("click", function(event) {
   let element = event.target;
-  if (element.classList.contains("card")) {
+  if (element.classList.contains("card") && !quizDone) {
     var answerChoice = element.getAttribute("data-number");
     if(!qArr[questionNumber].isQuestionAnswered[answerChoice -1]){
       qArr[questionNumber].isQuestionAnswered[answerChoice -1] = true;
       if (answerChoice == qArr[questionNumber].correctAnswer) {
         console.log("You got it Correct!");
-        respEl.textContent = "You got it Correct!";
+        numCorrect++;
+        respEl.textContent = "Correct! You have found " + numCorrect + " / " + qArr.length + " correct answers.";
+        if(numCorrect == qArr.length) {
+          quizDone = true;
+        }
         element.classList.add("correct");
         element.classList.remove("isValid");
         for(let i = 0; i < answers.length; i++) {
@@ -79,6 +84,10 @@ quizEl.addEventListener("click", function(event) {
             answers[i].classList.add("disabled");
             answers[i].classList.remove("isValid");
           }
+        }
+        if (questionNumber != qArr.length -1) {
+          questionNumber++;
+          loadQuestion(questionNumber,qArr)
         }
       }
       else if (!element.classList.contains("disabled")) {
@@ -108,18 +117,20 @@ timeEl.textContent = "Time: " + secondsLeft;
 function setTime() {
   // Sets interval in variable
   var timerInterval = setInterval(function() {
-    if(!stopTimer){
+    if(!quizDone){
     secondsLeft--;
     timeEl.textContent = "Time: "+ secondsLeft;
     }
-    if(secondsLeft <= 0 || stopTimer) {
+    if(secondsLeft <= 0 || quizDone) {
+      timeEl.textContent = "Time: " + secondsLeft;
+      quizDone = true;
+      loadQuestion(questionNumber, qArr)
       secondsLeft = 0;
       clearInterval(timerInterval);
-      timeEl.textContent = "Default Time: " + defaultTime;
       endQuiz();
     }
 
-  }, 1000);
+  }, 100);
 }
 function loadQuestion(num, qArray) {
   if (num == 0) {
@@ -142,7 +153,8 @@ function loadQuestion(num, qArray) {
   for (let i = 0; i < answers.length; i++) {
     console.log(i, "Has question been answered", (!qArray[num].isQuestionAnswered[i]))
     console.log(i ,"Has correct answer been found", (!qArray[num].isGuessedCorrect()))
-    if ((!qArray[num].isQuestionAnswered[i]) && (!qArray[num].isGuessedCorrect())) {
+    console.log(quizDone, "is the quiz done?")
+    if ((!qArray[num].isQuestionAnswered[i]) && (!qArray[num].isGuessedCorrect()) && (!quizDone)) {
     answers[i].classList.remove("correct");
     answers[i].classList.remove("incorrect");
     answers[i].classList.remove("disabled");
@@ -189,7 +201,8 @@ function startQuiz() {
     qArr[i].isQuestionAnswered = [false, false, false, false];
   }
   loadQuestion(0,qArr)
-  stopTimer = false;
+  quizDone = false;
+  numCorrect = 0;
   setTime();
 }
 startQuiz();
