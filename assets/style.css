@@ -80,7 +80,7 @@ footer {
 #highscores:hover {
   cursor: pointer;
 }
-.notClicked:hover {
+.isValid:hover {
   cursor: pointer;
   background-color: darkcyan;
 }

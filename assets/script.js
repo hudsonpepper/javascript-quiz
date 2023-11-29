@@ -58,34 +58,36 @@ var secondsLeft = defaultTime;
 var stopTimer = false;
 
 // EventListener for "View HighScore"
-//ToDo: bugged
 highscoreEl.addEventListener("click", function(event) {
   document.location.href="./scoreboard.html"
 })
+
 // EventListener for Answering a question
 quizEl.addEventListener("click", function(event) {
   let element = event.target;
   if (element.classList.contains("card")) {
-    answerChoice = element.getAttribute("data-number");
+    var answerChoice = element.getAttribute("data-number");
     if(!qArr[questionNumber].isQuestionAnswered[answerChoice -1]){
       qArr[questionNumber].isQuestionAnswered[answerChoice -1] = true;
       if (answerChoice == qArr[questionNumber].correctAnswer) {
         console.log("You got it Correct!");
+        respEl.textContent = "You got it Correct!";
         element.classList.add("correct");
-        element.classList.remove("notClicked");
+        element.classList.remove("isValid");
         for(let i = 0; i < answers.length; i++) {
           if ((!answers[i].classList.contains("correct")) && (!answers[i].classList.contains("incorrect")) ) {
             answers[i].classList.add("disabled");
-            answers[i].classList.remove("notClicked");
+            answers[i].classList.remove("isValid");
           }
         }
       }
-      else {
+      else if (!element.classList.contains("disabled")) {
         console.log("You got it wrong");
+        respEl.textContent = "You got it wrong. Deducting 5 seconds from remaining time."
         secondsLeft-=5;
         timeEl.textContent = "Time: "+ secondsLeft;
         element.classList.add("incorrect");
-        element.classList.remove("notClicked");
+        element.classList.remove("isValid");
       }
     };
   }
@@ -100,10 +102,6 @@ quizNavEl.addEventListener("click", function(event) {
     loadQuestion(questionNumber,qArr);
   }
 })
-
-
-
-
 
 timeEl.textContent = "Time: " + secondsLeft;
 
@@ -142,34 +140,46 @@ function loadQuestion(num, qArray) {
   ans3El.textContent = qArray[num].answer3;
   ans4El.textContent = qArray[num].answer4;
   for (let i = 0; i < answers.length; i++) {
-    if (qArray[num].isQuestionAnswered[i] == false) {
+    console.log(i, "Has question been answered", (!qArray[num].isQuestionAnswered[i]))
+    console.log(i ,"Has correct answer been found", (!qArray[num].isGuessedCorrect()))
+    if ((!qArray[num].isQuestionAnswered[i]) && (!qArray[num].isGuessedCorrect())) {
     answers[i].classList.remove("correct");
     answers[i].classList.remove("incorrect");
     answers[i].classList.remove("disabled");
-    answers[i].classList.add("notClicked");
+    answers[i].classList.add("isValid");
     }
-    else {
+    else if (qArray[num].isQuestionAnswered[i]){
       if (i == qArray[num].correctAnswer - 1) {
         answers[i].classList.add("correct");
         answers[i].classList.remove("incorrect");
-        answers[i].classList.remove("notClicked");
+        answers[i].classList.remove("disabled");
+        answers[i].classList.remove("isValid");
       }
       else {
         answers[i].classList.remove("correct");
         answers[i].classList.add("incorrect");
-        answers[i].classList.remove("notClicked");
+        answers[i].classList.remove("disabled");
+        answers[i].classList.remove("isValid");
       }
-
+    }
+    else {
+      answers[i].classList.remove("correct");
+      answers[i].classList.remove("incorrect");
+      answers[i].classList.add("disabled");
+      answers[i].classList.remove("isValid");
     }
   }
   let portionMessage = (questionNumber + 1) + " / " + qArr.length;
   portionEl.textContent = portionMessage;
 }
+
 function endQuiz() {
   //ToDo: turn the quiz to the highscore section
   //Todo: store the current score
-  document.location.href="./scoreboard.html"
+  respEl.textContent = "Quiz is over"
+  //document.location.href="./scoreboard.html"
 }
+
 function startQuiz() {
   secondsLeft = defaultTime;
   questionNumber = 0;
