@@ -24,59 +24,71 @@ var confirmEl = document.querySelector("#confirm");
 var answers = [ans1El, ans2El, ans3El, ans4El];
 // Variable Initializations
 var questionNumber = 0;
-let question1 = {
-  question: "Q1: do robot cows dream of electric milk?",
-  answer1: "sample answer 1: no...",
-  answer2: "sample answer 2: yes!",
-  answer3: "sample answer 3: this is a stupid question.",
-  answer4: "sample answer 4: cows don't sleep",
-  correctAnswer: 3,
-  isQuestionAnswered: [false,false,false,false],
-  isGuessedCorrect: function () {
-    return this.isQuestionAnswered[this.correctAnswer-1];
+let qArr = [
+  {
+    question: "do robot cows dream of electric milk?",
+    answer1: "sample answer 1: no...",
+    answer2: "sample answer 2: yes!",
+    answer3: "sample answer 3: this is a stupid question.",
+    answer4: "sample answer 4: cows don't sleep",
+    correctAnswer: 3,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
+  },
+  {
+    question: "Q2: do robot cows dream of electric milk?",
+    answer1: "sample answer 1: no...",
+    answer2: "sample answer 2: yes!",
+    answer3: "sample answer 3: this is a stupid question.",
+    answer4: "sample answer 4: cows don't sleep",
+    correctAnswer: 2,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
+  },
+  {
+    question: "Q3: do robot cows dream of electric milk?",
+    answer1: "sample answer 1: no...",
+    answer2: "sample answer 2: yes!",
+    answer3: "sample answer 3: this is a stupid question.",
+    answer4: "sample answer 4: cows don't sleep",
+    correctAnswer: 3,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
   }
-}
-let question2= {
-  question: "Q2: do robot cows dream of electric milk?",
-  answer1: "sample answer 1: no...",
-  answer2: "sample answer 2: yes!",
-  answer3: "sample answer 3: this is a stupid question.",
-  answer4: "sample answer 4: cows don't sleep",
-  correctAnswer: 2,
-  isQuestionAnswered: [false,false,false,false],
-  isGuessedCorrect: function () {
-    return this.isQuestionAnswered[this.correctAnswer-1];
-  }
-}
-let question3 = {
-  question: "Q3: do robot cows dream of electric milk?",
-  answer1: "sample answer 1: no...",
-  answer2: "sample answer 2: yes!",
-  answer3: "sample answer 3: this is a stupid question.",
-  answer4: "sample answer 4: cows don't sleep",
-  correctAnswer: 3,
-  isQuestionAnswered: [false,false,false,false],
-  isGuessedCorrect: function () {
-    return this.isQuestionAnswered[this.correctAnswer-1];
-  }
-}
-let qArr = [question1, question2, question3];
+];
 var defaultTime = 60;
 var secondsDeducted = 5;
 var secondsLeft = defaultTime;
 var quizDone = false;
+var quizResults = {
+  initials: "",
+  numCorrect: 0,
+  numQuestions: qArr.length,
+  finalTime: 0,
+  isPerfectScore: false
+};
+//localStorage.setItem("Most-Recent", JSON.stringify(quizResults));
+console.log("Starting: ", quizResults);
 var numCorrect = 0;
 
 // EventListener for "View HighScore"
 highscoreEl.addEventListener("click", function(event) {
-  document.location.href="./scoreboard.html"
+  document.location.href="./assets/scoreboard.html"
 })
 
+// EventListener for the Submit button for initials
 confirmEl.addEventListener("click", function(event) {
   event.preventDefault();
-  let initial = initialsEl.value;
-  localStorage.setItem("testing", initial)
-  document.location.href="./scoreboard.html"
+  quizResults.initials = initialsEl.value;
+  console.log("quizResults final: ", quizResults);
+  localStorage.setItem("Most-Recent", JSON.stringify(quizResults));
+  document.location.href="./assets/scoreboard.html"
 })
 
 defaultEl.textContent = defaultTime;
@@ -91,11 +103,11 @@ quizEl.addEventListener("click", function(event) {
     if(!qArr[questionNumber].isQuestionAnswered[answerChoice -1]){
       qArr[questionNumber].isQuestionAnswered[answerChoice -1] = true;
       if (answerChoice == qArr[questionNumber].correctAnswer) {
-        console.log("You got it Correct!");
-        numCorrect++;
-        respEl.textContent = "Correct! You have found " + numCorrect + " / " + qArr.length + " correct answers.";
-        if(numCorrect == qArr.length) {
+        quizResults.numCorrect++;
+        respEl.textContent = "Correct! You have found " + quizResults.numCorrect + " / " + qArr.length + " correct answers.";
+        if(quizResults.numCorrect == qArr.length) {
           quizDone = true;
+          quizResults.isPerfectScore = true;
         }
         element.classList.add("correct");
         element.classList.remove("isValid");
@@ -111,7 +123,6 @@ quizEl.addEventListener("click", function(event) {
         }
       }
       else if (!element.classList.contains("disabled")) {
-        console.log("You got it wrong");
         respEl.textContent = "You got it wrong. Deducting 5 seconds from remaining time."
         secondsLeft-=secondsDeducted;
         timeEl.textContent = "Time: "+ secondsLeft;
@@ -134,24 +145,32 @@ quizNavEl.addEventListener("click", function(event) {
 
 timeEl.textContent = "Time: " + secondsLeft;
 
+//Adds Timer Functionality
 function setTime() {
   // Sets interval in variable
   var timerInterval = setInterval(function() {
     if(!quizDone){
     secondsLeft--;
-    timeEl.textContent = "Time: "+ secondsLeft;
+    timeEl.textContent = "Time: " + secondsLeft;
+
     }
     if(secondsLeft <= 0 || quizDone) {
-      timeEl.textContent = "Time: " + secondsLeft;
+      if(secondsLeft < 0) {
+        secondsLeft = 0;
+      }
+      quizResults.finalTime = secondsLeft;
+      console.log("ending quiz: ", quizResults);
+      timeEl.textContent = "Time: " + quizResults.finalTime;
       quizDone = true;
       loadQuestion(questionNumber, qArr)
-      secondsLeft = 0;
       clearInterval(timerInterval);
       endQuiz();
     }
 
-  }, 100);
+  }, 1000);
 }
+
+// function to deal with loadingQuestion Data
 function loadQuestion(num, qArray) {
   if (num == 0) {
     prevEl.classList.add("hidden");
@@ -165,15 +184,12 @@ function loadQuestion(num, qArray) {
     prevEl.classList.remove("hidden");
     nextEl.classList.remove("hidden");
   }
-  questionEl.textContent = qArray[num].question;
+  questionEl.textContent = "Q"+(questionNumber+1)+": " + qArray[num].question;
   ans1El.textContent = qArray[num].answer1;
   ans2El.textContent = qArray[num].answer2;
   ans3El.textContent = qArray[num].answer3;
   ans4El.textContent = qArray[num].answer4;
   for (let i = 0; i < answers.length; i++) {
-    console.log(i, "Has question been answered", (!qArray[num].isQuestionAnswered[i]))
-    console.log(i ,"Has correct answer been found", (!qArray[num].isGuessedCorrect()))
-    console.log(quizDone, "is the quiz done?")
     if ((!qArray[num].isQuestionAnswered[i]) && (!qArray[num].isGuessedCorrect()) && (!quizDone)) {
     answers[i].classList.remove("correct");
     answers[i].classList.remove("incorrect");
@@ -205,6 +221,7 @@ function loadQuestion(num, qArray) {
   portionEl.textContent = portionMessage;
 }
 
+// function to do end of quiz 
 function endQuiz() {
   //ToDo: turn the quiz to the highscore section
   //Todo: store the current score
@@ -213,6 +230,8 @@ function endQuiz() {
   //document.location.href="./scoreboard.html"
 }
 
+
+//function to 
 function startQuiz() {
   
   secondsLeft = defaultTime;
