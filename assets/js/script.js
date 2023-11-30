@@ -132,6 +132,19 @@ var quizResults = {
   isPerfectScore: false
 };
 
+//Function to shuffle question order for each quiz
+function shuffleArray(arr) {
+  // Fisher Yates Shuffle:  Source = https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+  for (let i = arr.length - 1; i >= 0; i--) {
+    randomIndex = Math.floor(Math.random() * i);
+    source_elem = arr[i];
+    target_elem = arr[randomIndex];
+    arr[i] = target_elem;
+    arr[randomIndex] = source_elem;
+  }
+  return arr;
+}
+
 // EventListener for "View HighScore"
 highscoreEl.addEventListener("click", function(event) {
   document.location.href="./scoreboard.html";
@@ -329,6 +342,8 @@ function startQuiz() {
   for(let i = 0; i < qArr.length; i++) {
     qArr[i].isQuestionAnswered = [false, false, false, false];
   }
+  // Shuffle Question Order
+  qArr = shuffleArray(qArr);
   // Load first Question
   loadQuestion(0,qArr)
   quizDone = false;
