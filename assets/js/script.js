@@ -182,7 +182,7 @@ quizEl.addEventListener("click", function(event) {
       // If answer is correct, add appropriate text, color, class
       if (answerChoice == qArr[questionNumber].correctAnswer) {
         quizResults.numCorrect++;
-        respEl.textContent = "Correct! You have found " + quizResults.numCorrect + " / " + qArr.length + " correct answers.";
+        respEl.textContent = "✅Correct! You have found " + quizResults.numCorrect + " / " + qArr.length + " correct answers.";
         // Checks if this all questions have been answered correctly
         if(quizResults.numCorrect == qArr.length) {
           // if so, then end the quiz and note that they got a perfect score
@@ -206,7 +206,7 @@ quizEl.addEventListener("click", function(event) {
       }
       // Else, if they got it wrong, change message, time, and class to reflect it.
       else if (!element.classList.contains("disabled")) {
-        respEl.textContent = "You got it wrong. Deducting 5 seconds from remaining time."
+        respEl.textContent = "❌You got it wrong. Deducting 5 seconds from remaining time."
         secondsLeft-=secondsDeducted;
         timeEl.textContent = "Time: "+ secondsLeft;
         element.classList.add("incorrect");
