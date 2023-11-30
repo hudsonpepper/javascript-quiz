@@ -1,8 +1,6 @@
+/* Universal Selector */
 * {
   margin: 2px;
-}
-h2{
-  text-align: center;
 }
 body {
   position: relative;
@@ -10,7 +8,7 @@ body {
   font-size: 1em;
   display: grid;
 }
-
+/* Top of the Page Formatting */
 header {
   display: flex;
   flex-direction: row;
@@ -28,14 +26,32 @@ header p {
   color:blueviolet;
   text-decoration: underline;
 }
+/* Meat of the page formatting */
+h2{
+  text-align: center;
+}
 #center {
   justify-self: center;
   width:50%;
   position: relative;
 }
+/* Start Page Formatting */
+#pageLoad {
+  position:absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
+#pageLoad h2 {
+  text-align: center;
+  border-bottom: 2px solid gray;
+
+}
 #pageLoad p{
   text-align: center;
 }
+/* Quiz Formatting */
 #quiz {
   position: absolute;
   width: 100%;
@@ -54,16 +70,18 @@ header p {
   justify-content: space-around;
   margin:1em;
 }
+/* For Prev/Next and New Game/Reset Scores buttons*/
 .navigation {
   max-width: 40%;
 }
+/* Formats Buttons */
 .card {
   border-radius: 25%;
   padding: 1em;
   background-color: cadetblue;
   color:floralwhite;
 }
-
+/* Formats Message Under Quiz */
 footer {
   justify-self: center;
   margin-top: 1em;
@@ -72,10 +90,11 @@ footer {
   border-top: 2px solid gray;
   text-indent: 3em;
 }
-
+/* Visibility Class */
 .hidden {
   visibility: hidden;
 }
+/* Hover Behavior */
 #highscores:hover {
   cursor: pointer;
 }
@@ -83,36 +102,12 @@ footer {
   cursor: pointer;
   background-color: darkcyan;
 }
-
-#pageLoad {
-  position:absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-self: center;
-}
-#pageLoad h2 {
-  text-align: center;
-  border-bottom: 2px solid gray;
-
-}
-@media screen and (max-width: 992px) {
-  #center {
-    width: 75%;
-    font-size: .8em;
-  }
-}
-@media screen and (max-width: 768px){
-  #center {
-    width: 100%;
-    font-size: .6em;
-  }
-}
-
 .navigation:hover {
   cursor: pointer;
   background-color: darkcyan;
 }
+
+/* Button Class Formatting */
 .correct {
   background-color: #28a745;
   cursor: default;
@@ -128,6 +123,23 @@ footer {
   color:gray;
   cursor: default;
 }
+/* Alert Class for initial non-entry*/
 #alert{
   color: #d9534f;
+  font-weight: bolder;
 }
+
+/* Screen Size Formatting */
+@media screen and (max-width: 992px) {
+  #center {
+    width: 75%;
+    font-size: .8em;
+  }
+}
+@media screen and (max-width: 768px){
+  #center {
+    width: 100%;
+    font-size: .6em;
+  }
+}
+

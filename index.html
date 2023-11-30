@@ -4,15 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript Quiz</title>
+  <!-- Adds Icon to the Tab Bar -->
   <link rel="shortcut icon" type="image/h-icon" href="https://openclipart.org/download/201003/primary-source-h.svg ">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+  <!-- Header Section at the Top of the Page -->
   <header>
+    <!-- Highscores Should be Clickable and send to scoreboard.html -->
     <p id="highscores">View Highscores</p>
     <h1>JavaScript Quiz</h1>
     <p id="timer">Timer: </p>
   </header>
+  <!-- Center Section Containing PageLoad, Quiz, and End-Form -->
   <div id="center">
     <div id="pageLoad">
       <h2>Welcome to the JavaScript Quiz! </h2>
@@ -23,18 +27,22 @@
       <p>If you have time remaining at the end, you'll get a special place on the leaderboards!</p>   
       <button class="card" id="startQuiz">Start Quiz</button>
     </div>
+    <!-- Hidden Class Ensures Page Won't get too crowded -->
     <div class="hidden" id="quiz">
+      <!-- Nav Section has Prev. Question and Next Question Buttons -->
       <div id="question-navigation">
         <button class="card navigation" id="previous" data-number="-1">Prev. Question</button>
         <span id="portion-done"></span>
         <button class="card navigation" id="next" data-number="1">Next Question</button>
       </div>
+      <!-- Section of the Page Actually Containing the Questions -->
       <h2 id="question"></h2>
       <button class="card isValid" id="answer1" data-number="1"></button>
       <button class="card isValid" id="answer2" data-number="2"></button>
       <button class="card isValid" id="answer3" data-number="3"></button>
       <button class="card isValid" id="answer4" data-number="4"></button>
       <footer id="response"></footer>
+      <!-- Section to Enter Initials: Will appear once quiz is done -->
       <form class="hidden" id="scoreboard">
         <h4>Quiz is done!</h4>
         <p id="score"></p>
@@ -48,6 +56,7 @@
       </form>
     </div>
   </div>
+  <!-- Relevant Script File Loads once basic HTML has loaded to keep page responsive -->
   <script src="./assets/js/script.js"></script>
 </body>
 </html>

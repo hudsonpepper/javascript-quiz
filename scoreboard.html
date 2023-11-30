@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HighScores</title>
+  <!-- Tab Icon Inserted On Line below: is in public domain :) -->
   <link rel="shortcut icon" type="image/h-icon" href="https://openclipart.org/download/201003/primary-source-h.svg ">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+  <!-- To Keep Page properly formatted, header has same elements, just several have been hidden -->
   <header>
     <p class="hidden" id="highscores">View Highscores</p>
     <h1>JavaScript Quiz</h1>
@@ -16,20 +18,24 @@
   <div id="center">
     <div id="scoreboard">
       <h2>Scoreboard! </h2>
-
+      <!-- Same Navigation type, but now buttons are for New Game and clearing prior scores -->
       <div id="question-navigation">
         <button class="card navigation notClicked" id="new-game">Start New Game</button>
         <button class="card navigation notClicked" id="reset">Reset Scoreboard</button>
       </div>
+      <!-- HR is Horizontal line: Looks nice to break up page -->
       <hr>
+      <!-- Section for Prior Scores Which are all-right answers have been found -->
       <h3>Perfect Scores: </h3>
       <ol id="perfect">
       </ol>
       <hr>
+      <!-- Section for Prior Scores Which not all-right answers have been found -->
       <h3>Imperfect Scores:</h3>
       <ol id="imperfect"></ol>
     </div>
   </div>
+  <!-- Relevant javascript file: NOTE, not the same as for index.html -->
   <script src="./assets/js/scoreboard-script.js"></script>
 </body>
 </html>
