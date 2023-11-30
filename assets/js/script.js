@@ -23,106 +23,19 @@ var ans4El = document.querySelector("#answer4");
 var respEl = document.querySelector("#response");
       // Answer IDs in Array Format
 var answers = [ans1El, ans2El, ans3El, ans4El];
-    // Quiz Done IDs
+    // 'Quiz-Done' IDs
 var scoreboardEl = document.querySelector("#scoreboard");
 var scoreEl = document.querySelector("#score");
 var initialsEl = document.querySelector("#initials");
 var confirmEl = document.querySelector("#confirm");
 
-
 // Variable Initializations
 var questionNumber = 0;
-  // Question Array
-let qArr = [
-  {
-    question: "Which is a correct for-loop in JavaScript?",
-    answer1: "for(i = 0, i < 10, i++) {console.log(i);}",
-    answer2: "for(let i = 10; i > 0; i--) {console.log(i);}",
-    answer3: "for i in range(10): print(i)",
-    answer4: "for[let i = 0; i < 10; i++] {console.log(i);}",
-    correctAnswer: 2,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  },
-  {
-    question: "What is NOT a JavaScript primative type?",
-    answer1: "string",
-    answer2: "number",
-    answer3: "array",
-    answer4: "object",
-    correctAnswer: 4,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  },
-  {
-    question: "How do you print 'Hello World' in JavaScript?",
-    answer1: "cout << 'Hello World';",
-    answer2: "print('Hello World')",
-    answer3: "console.log('Hello World');",
-    answer4: "system.out.print('Hello World');",
-    correctAnswer: 3,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  },
-  {
-    question: "Which is correctly defining a JavaScript object: ",
-    answer1: "var carObj = {wheels: 4, make: 'Honda', model: 'CRV'};",
-    answer2: "var carObj : {wheels: 4; make: 'Honda'; model: 'CRV'};",
-    answer3: "var carObj = [wheels: 4, make: 'Honda', model: 'CRV'];",
-    answer4: "var carObj : [wheels = 4, make = 'Honda', model = 'CRV'];",
-    correctAnswer: 1,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  },
-  {
-    question: "How do you find the length of an array in JavaScript?",
-    answer1: "testArr.length();",
-    answer2: "testArr.length;",
-    answer3: "Array.length(testArr);",
-    answer4: "length(testArr);",
-    correctAnswer: 2,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  },
-  {
-    question: "Which will set 'testStorage' as a key inside local storage memory?",
-    answer1: "localMemory.setItem('testStorage': 'hello');",
-    answer2: "localStorage.setItem('testStorage': 'hello');",
-    answer3: "localStorage.setItem('testStorage');",
-    answer4: "localStorage.setItem('3': 'testStorage');",
-    correctAnswer: 2,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  },
-  {
-    question: "How would I call the method 'funFact' from the object 'planetObj'?",
-    answer1: "planetObj.funFact;",
-    answer2: "planetObj:funFact();",
-    answer3: "funFact(planetObj);",
-    answer4: "planetObj.funFact();",
-    correctAnswer: 4,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  }
-];
 var defaultTime = 60;
 var secondsDeducted = 5;
 var secondsLeft = defaultTime;
 var quizDone = false;
+
   // Results Obj: will be stored in Local Memory
 var quizResults = {
   initials: "",
@@ -132,18 +45,14 @@ var quizResults = {
   isPerfectScore: false
 };
 
-//Function to shuffle question order for each quiz
-function shuffleArray(arr) {
-  // Fisher Yates Shuffle:  Source = https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-  for (let i = arr.length - 1; i >= 0; i--) {
-    randomIndex = Math.floor(Math.random() * i);
-    source_elem = arr[i];
-    target_elem = arr[randomIndex];
-    arr[i] = target_elem;
-    arr[randomIndex] = source_elem;
-  }
-  return arr;
-}
+// JS Formatting for PageLoad
+defaultEl.textContent = defaultTime;
+deductionEl.textContent = secondsDeducted;
+// Display seconds left on the time box at the top
+timeEl.textContent = "Time: " + secondsLeft;
+
+// Event Listener to start the quiz
+startEl.addEventListener("click", startQuiz);
 
 // EventListener for "View HighScore"
 highscoreEl.addEventListener("click", function(event) {
@@ -164,11 +73,6 @@ confirmEl.addEventListener("click", function(event) {
   document.location.href="./scoreboard.html";
   }
 })
-
-// JS Formatting for PageLoad
-defaultEl.textContent = defaultTime;
-deductionEl.textContent = secondsDeducted;
-startEl.addEventListener("click", startQuiz);
 
 // EventListener for Answering a question
 quizEl.addEventListener("click", function(event) {
@@ -226,8 +130,42 @@ quizNavEl.addEventListener("click", function(event) {
     loadQuestion(questionNumber,qArr);
   }
 })
-// Display seconds left on the time box at the top
-timeEl.textContent = "Time: " + secondsLeft;
+
+
+//function to start the quiz
+function startQuiz() {
+  // Initialize Time and Question Number
+  secondsLeft = defaultTime;
+  questionNumber = 0;
+  // Display Quiz
+  welcomeEl.classList.add("hidden");
+  quizEl.classList.remove("hidden");
+  scoreboardEl.classList.add("hidden");
+  // Reset Question History
+  for(let i = 0; i < qArr.length; i++) {
+    qArr[i].isQuestionAnswered = [false, false, false, false];
+  }
+  // Shuffle Question Order
+  qArr = shuffleArray(qArr);
+  // Load first Question
+  loadQuestion(0,qArr)
+  quizDone = false;
+  // Start Timer
+  setTime();
+}
+
+//Function to shuffle question order for each quiz
+function shuffleArray(arr) {
+  // Fisher Yates Shuffle:  Source = https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+  for (let i = arr.length - 1; i >= 0; i--) {
+    randomIndex = Math.floor(Math.random() * i);
+    source_elem = arr[i];
+    target_elem = arr[randomIndex];
+    arr[i] = target_elem;
+    arr[randomIndex] = source_elem;
+  }
+  return arr;
+}
 
 //Adds Timer Functionality
 function setTime() {
@@ -256,13 +194,13 @@ function setTime() {
 }
 
 // function to deal with loadingQuestion Data
-function loadQuestion(num, qArray) {
+function loadQuestion(num,qArray) {
   // Logic as to if prev and next buttons should display given question number
-  if (num == 0) {
+  if(num==0) {
     prevEl.classList.add("hidden");
     nextEl.classList.remove("hidden");
   }
-  else if (num == qArray.length - 1) {
+  else if(num==qArray.length-1) {
     nextEl.classList.add("hidden");
     prevEl.classList.remove("hidden");
   }
@@ -271,50 +209,59 @@ function loadQuestion(num, qArray) {
     nextEl.classList.remove("hidden");
   }
   // Logic to display correct question
-  questionEl.textContent = "Q"+(questionNumber+1)+": " + qArray[num].question;
-  ans1El.textContent = qArray[num].answer1;
-  ans2El.textContent = qArray[num].answer2;
-  ans3El.textContent = qArray[num].answer3;
-  ans4El.textContent = qArray[num].answer4;
+  questionEl.textContent="Q"+(questionNumber+1)+": "+qArray[num].question;
+  ans1El.textContent=qArray[num].answer1;
+  ans2El.textContent=qArray[num].answer2;
+  ans3El.textContent=qArray[num].answer3;
+  ans4El.textContent=qArray[num].answer4;
   // Logic for correct card class formatting given question and answer history and if quiz is ongoing
-  for (let i = 0; i < answers.length; i++) {
+  for(let i=0;i<answers.length;i++) {
     // Default Behavior
-    if ((!qArray[num].isQuestionAnswered[i]) && (!qArray[num].isGuessedCorrect()) && (!quizDone)) {
-    answers[i].classList.remove("correct");
-    answers[i].classList.remove("incorrect");
-    answers[i].classList.remove("disabled");
-    answers[i].classList.add("isValid");
+    if((!qArray[num].isQuestionAnswered[i])&&(!qArray[num].isGuessedCorrect())&&(!quizDone)) {
+      modifyAnswerStyles("isValid",i);
     }
-    else if (qArray[num].isQuestionAnswered[i]){
+    else if(qArray[num].isQuestionAnswered[i]) {
       // Answer Correct Behavior
-      if (i == qArray[num].correctAnswer - 1) {
-        answers[i].classList.add("correct");
-        answers[i].classList.remove("incorrect");
-        answers[i].classList.remove("disabled");
-        answers[i].classList.remove("isValid");
+      if(i==qArray[num].correctAnswer-1) {
+        modifyAnswerStyles("correct",i);
       }
       // Wrong Answer Behavior
       else {
-        answers[i].classList.remove("correct");
-        answers[i].classList.add("incorrect");
-        answers[i].classList.remove("disabled");
-        answers[i].classList.remove("isValid");
+        modifyAnswerStyles("incorrect",i);
       }
     }
     // Can no longer Answer Behavior
     else {
-      answers[i].classList.remove("correct");
-      answers[i].classList.remove("incorrect");
-      answers[i].classList.add("disabled");
-      answers[i].classList.remove("isValid");
+      modifyAnswerStyles("disabled",i);
     }
   }
   // Display "question number" / "total questions" between question nav buttons
-  let portionMessage = (questionNumber + 1) + " / " + qArr.length;
-  portionEl.textContent = portionMessage;
+  let portionMessage=(questionNumber+1)+" / "+qArr.length;
+  portionEl.textContent=portionMessage;
 }
 
-// function to do end of quiz 
+// Function which handles relevant class changes based on answer history and 'isCorrect' behavior
+function modifyAnswerStyles(answerState,i) {
+  if(answerState==="isValid") {
+    answers[i].classList.add("isValid");
+    answers[i].classList.remove("correct","incorrect","disabled");
+
+  } else if(answerState==="correct") {
+    answers[i].classList.add("correct");
+    answers[i].classList.remove("incorrect","disabled","isValid");
+
+  } else if(answerState==="incorrect") {
+    answers[i].classList.add("incorrect");
+    answers[i].classList.remove("correct","disabled","isValid");
+
+  } else {
+    answers[i].classList.add("disabled");
+    answers[i].classList.remove("correct","incorrect","isValid");
+
+  }
+}
+
+// Function which handles endQuiz behavior
 function endQuiz() {
   // Perfect Score Message
   if(quizResults.isPerfectScore) {
@@ -326,27 +273,4 @@ function endQuiz() {
   }
   // Show initial form 
   scoreboardEl.classList.remove("hidden");
-}
-
-
-//function to start the quiz
-function startQuiz() {
-  // Initialize Time and Question Number
-  secondsLeft = defaultTime;
-  questionNumber = 0;
-  // Display Quiz
-  welcomeEl.classList.add("hidden");
-  quizEl.classList.remove("hidden");
-  scoreboardEl.classList.add("hidden");
-  // Reset Question History
-  for(let i = 0; i < qArr.length; i++) {
-    qArr[i].isQuestionAnswered = [false, false, false, false];
-  }
-  // Shuffle Question Order
-  qArr = shuffleArray(qArr);
-  // Load first Question
-  loadQuestion(0,qArr)
-  quizDone = false;
-  // Start Timer
-  setTime();
 }
