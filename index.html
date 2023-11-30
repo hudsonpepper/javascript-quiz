@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript Quiz</title>
-    <!-- ToDo: Add my own Icon -->
-  <!--<link rel="shortcut icon" href="https://st1.zoom.us/zoom.ico"> -->
-  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="shortcut icon" type="image/h-icon" href="https://openclipart.org/download/201003/primary-source-h.svg ">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
   <header>
@@ -17,38 +16,38 @@
   <div id="center">
     <div id="pageLoad">
       <h2>Welcome to the JavaScript Quiz! </h2>
-      <p>This is a JavaScript Quiz! 
-        Find as many correct answers as you can before time runs out. 
-        You start with <span id="defaultTime"></span> seconds, but incorrect 
+      <p>This is a JavaScript quiz, find as many correct answers as you can before time runs out.</p>
+      <p>You start with <span id="defaultTime"></span> seconds, but be careful; incorrect 
         answers reduce the total time by <span id="deductionTime"></span> seconds 
-        per wrong answer. If you have time remaining at the end, that's a plus!
-      </p>
+        per wrong answer. </p>
+      <p>If you have time remaining at the end, you'll get a special place on the leaderboards!</p>   
       <button class="card" id="startQuiz">Start Quiz</button>
     </div>
     <div class="hidden" id="quiz">
       <div id="question-navigation">
         <button class="card navigation" id="previous" data-number="-1">Prev. Question</button>
         <span id="portion-done"></span>
-        <button class="card" id="next" data-number="1">Next Question</button>
+        <button class="card navigation" id="next" data-number="1">Next Question</button>
       </div>
       <h2 id="question"></h2>
       <button class="card isValid" id="answer1" data-number="1"></button>
       <button class="card isValid" id="answer2" data-number="2"></button>
       <button class="card isValid" id="answer3" data-number="3"></button>
       <button class="card isValid" id="answer4" data-number="4"></button>
-      <footer id="response">Correct!</footer>
+      <footer id="response"></footer>
       <form class="hidden" id="scoreboard">
         <h4>Quiz is done!</h4>
-        <p id="score">test text</p>
+        <p id="score"></p>
         <p>To save you score, enter your name and see where you fall on the leaderboards</p>
         <div class="input-group">
           <label for="first-name">Name: </label>
           <input type="text" name="initials" id="initials" placeholder="JDS" />
+          <span class="hidden" id="alert">Please enter a name!</span>
           <button id="confirm">See Scores:</button>
         </div>
       </form>
     </div>
   </div>
-  <script src="./assets/script.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>

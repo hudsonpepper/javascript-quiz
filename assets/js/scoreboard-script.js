@@ -36,11 +36,17 @@ function writeScoreboard() {
   scoreHistory.perfectArray.forEach( function(currentValue) {
     let node = document.createElement("li");
     node.textContent = currentValue.initials + ": " + currentValue.finalTime + " seconds remaining";
+    if(currentValue == recentScore) {
+      node.style.color = "#d9534f";
+    }
     perfListEl.appendChild(node);
   })
   scoreHistory.imperfectArray.forEach( function(currentValue) {
     let node = document.createElement("li");
     node.textContent = currentValue.initials + ": " + currentValue.numCorrect + " / " + currentValue.numQuestions;
+    if(currentValue == recentScore) {
+      node.style.color = "#d9534f";
+    }
     impListEl.appendChild(node);
   })
 }
