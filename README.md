@@ -14,7 +14,13 @@ Technologies Used:
 This site should be used to test and review basic JavaScript concepts. 
 
 The site can be accessed here: https://hudsonpepper.github.io/javascript-quiz/
-<!-- TODO: ![Screenshot of Deployed Site](./assets/images/Screenshot_Example-Password.png "Screenshot") -->
+
+Example Screenshot of End-card of the Quiz:
+![Screenshot of Quiz](./assets/images/Screenshot_JavaScript-Quiz(Quiz)v2.png "Screenshot")
+
+Example Screenshot of the Leaderboard Page:
+![Screenshot of Leaderboards](./assets/images/Screenshot_JavaScript-Quiz(Scoreboard)v2.png "Screenshot")
+
 ## Credits
 
 This code is an original project inspired from course materials from the EdX Fullstack Web Development Bootcamp in collaboration with UPenn.  

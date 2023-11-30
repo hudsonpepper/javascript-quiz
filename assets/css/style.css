@@ -1,13 +1,14 @@
 * {
-  /* border: 2px solid hotpink; */
   margin: 2px;
 }
-
+h2{
+  text-align: center;
+}
 body {
   position: relative;
   font-family: "Helvetica", "Arial", sans-serif;
   font-size: 1em;
-  display: grid
+  display: grid;
 }
 
 header {
@@ -32,7 +33,9 @@ header p {
   width:50%;
   position: relative;
 }
-
+#pageLoad p{
+  text-align: center;
+}
 #quiz {
   position: absolute;
   width: 100%;
@@ -55,7 +58,7 @@ header p {
   max-width: 40%;
 }
 .card {
-  border-radius: .2em;
+  border-radius: 25%;
   padding: 1em;
   background-color: cadetblue;
   color:floralwhite;
@@ -70,9 +73,6 @@ footer {
   text-indent: 3em;
 }
 
-.visible {
-  visibility: visible;
-}
 .hidden {
   visibility: hidden;
 }
@@ -99,21 +99,27 @@ footer {
 @media screen and (max-width: 992px) {
   #center {
     width: 75%;
+    font-size: .8em;
   }
 }
 @media screen and (max-width: 768px){
   #center {
     width: 100%;
+    font-size: .6em;
   }
 }
 
+.navigation:hover {
+  cursor: pointer;
+  background-color: darkcyan;
+}
 .correct {
-  background-color: lawngreen;
+  background-color: #28a745;
   cursor: default;
 }
 
 .incorrect {
-  background-color: red;
+  background-color: #d9534f;
   cursor: default;
 }
 
@@ -121,4 +127,7 @@ footer {
   background-color: darkslategray;
   color:gray;
   cursor: default;
+}
+#alert{
+  color: #d9534f;
 }

@@ -26,23 +26,11 @@ var answers = [ans1El, ans2El, ans3El, ans4El];
 var questionNumber = 0;
 let qArr = [
   {
-    question: "do robot cows dream of electric milk?",
-    answer1: "sample answer 1: no...",
-    answer2: "sample answer 2: yes!",
-    answer3: "sample answer 3: this is a stupid question.",
-    answer4: "sample answer 4: cows don't sleep",
-    correctAnswer: 3,
-    isQuestionAnswered: [false,false,false,false],
-    isGuessedCorrect: function () {
-      return this.isQuestionAnswered[this.correctAnswer-1];
-    }
-  },
-  {
-    question: "Q2: do robot cows dream of electric milk?",
-    answer1: "sample answer 1: no...",
-    answer2: "sample answer 2: yes!",
-    answer3: "sample answer 3: this is a stupid question.",
-    answer4: "sample answer 4: cows don't sleep",
+    question: "Which is a correct for-loop in JavaScript?",
+    answer1: "for(i = 0, i < 10, i++) {console.log(i);}",
+    answer2: "for(let i = 10; i > 0; i--) {console.log(i);}",
+    answer3: "for i in range(10): print(i)",
+    answer4: "for[let i = 0; i < 10; i++] {console.log(i);}",
     correctAnswer: 2,
     isQuestionAnswered: [false,false,false,false],
     isGuessedCorrect: function () {
@@ -50,12 +38,72 @@ let qArr = [
     }
   },
   {
-    question: "Q3: do robot cows dream of electric milk?",
-    answer1: "sample answer 1: no...",
-    answer2: "sample answer 2: yes!",
-    answer3: "sample answer 3: this is a stupid question.",
-    answer4: "sample answer 4: cows don't sleep",
+    question: "What is NOT a JavaScript primative type?",
+    answer1: "string",
+    answer2: "number",
+    answer3: "array",
+    answer4: "object",
+    correctAnswer: 4,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
+  },
+  {
+    question: "How do you print 'Hello World' in JavaScript?",
+    answer1: "cout << 'Hello World';",
+    answer2: "print('Hello World')",
+    answer3: "console.log('Hello World');",
+    answer4: "system.out.print('Hello World');",
     correctAnswer: 3,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
+  },
+  {
+    question: "Which is correctly defining a JavaScript object: ",
+    answer1: "var carObj = {wheels: 4, make: 'Honda', model: 'CRV'};",
+    answer2: "var carObj : {wheels: 4; make: 'Honda'; model: 'CRV'};",
+    answer3: "var carObj = [wheels: 4, make: 'Honda', model: 'CRV'];",
+    answer4: "var carObj : [wheels = 4, make = 'Honda', model = 'CRV'];",
+    correctAnswer: 1,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
+  },
+  {
+    question: "How do you find the length of an array in JavaScript?",
+    answer1: "testArr.length();",
+    answer2: "testArr.length;",
+    answer3: "Array.length(testArr);",
+    answer4: "length(testArr);",
+    correctAnswer: 2,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
+  },
+  {
+    question: "Which will set 'testStorage' as a key inside local storage memory?",
+    answer1: "localMemory.setItem('testStorage': 'hello');",
+    answer2: "localStorage.setItem('testStorage': 'hello');",
+    answer3: "localStorage.setItem('testStorage');",
+    answer4: "localStorage.setItem('3': 'testStorage');",
+    correctAnswer: 2,
+    isQuestionAnswered: [false,false,false,false],
+    isGuessedCorrect: function () {
+      return this.isQuestionAnswered[this.correctAnswer-1];
+    }
+  },
+  {
+    question: "How would I call the method 'funFact' from the object 'planetObj'?",
+    answer1: "planetObj.funFact;",
+    answer2: "planetObj:funFact();",
+    answer3: "funFact(planetObj);",
+    answer4: "planetObj.funFact();",
+    correctAnswer: 4,
     isQuestionAnswered: [false,false,false,false],
     isGuessedCorrect: function () {
       return this.isQuestionAnswered[this.correctAnswer-1];
@@ -73,8 +121,6 @@ var quizResults = {
   finalTime: 0,
   isPerfectScore: false
 };
-//localStorage.setItem("Most-Recent", JSON.stringify(quizResults));
-console.log("Starting: ", quizResults);
 var numCorrect = 0;
 
 // EventListener for "View HighScore"
@@ -87,9 +133,14 @@ highscoreEl.addEventListener("click", function(event) {
 confirmEl.addEventListener("click", function(event) {
   event.preventDefault();
   quizResults.initials = initialsEl.value;
+  if(quizResults.initials == "") {
+    document.querySelector("#alert").classList.remove("hidden");
+  }
+  else{
   console.log("quizResults final: ", quizResults);
   localStorage.setItem("Most-Recent", JSON.stringify(quizResults));
   document.location.href="./scoreboard.html"
+  }
 })
 
 defaultEl.textContent = defaultTime;
@@ -224,11 +275,13 @@ function loadQuestion(num, qArray) {
 
 // function to do end of quiz 
 function endQuiz() {
-  //ToDo: turn the quiz to the highscore section
-  //Todo: store the current score
-  //respEl.textContent = "Quiz is over"
+  if(quizResults.isPerfectScore) {
+    scoreEl.textContent = "You got a perfect score with " + quizResults.finalTime + " seconds remaining"
+  }
+  else {
+    scoreEl.textContent = "You were only able to find " + quizResults.numCorrect + " / " + quizResults.numQuestions + " correct answers before time ran out."
+  }
   scoreboardEl.classList.remove("hidden");
-  //document.location.href="./scoreboard.html"
 }
 
 
@@ -248,5 +301,3 @@ function startQuiz() {
   numCorrect = 0;
   setTime();
 }
-//startQuiz();
-//loadQuestion(0,qArr);
